@@ -33,29 +33,23 @@ public class Movement : MonoBehaviour {
 
     void ProcessThrust() {
         if (isThrusting) {
-            rb.AddRelativeForce(Vector3.up * GetIndependentThrust());
+            rb.AddRelativeForce(Vector3.up * thrustForce * Time.deltaTime);
         }
     }
 
     void ProcessRotation() {
         if (isRotatingRight) {
-            transform.Rotate(Vector3.forward * GetInvertedIndependentRotation());
+            ApplyIndependentRotation(-rotationForce);
         }
 
         if (isRotatingLeft) {
-            transform.Rotate(Vector3.forward * GetIndependentRotation());
+            ApplyIndependentRotation(rotationForce);
         }
     }
 
-    float GetIndependentThrust() {
-        return thrustForce * Time.deltaTime;
-    }
-
-    float GetIndependentRotation() {
-        return rotationForce * Time.deltaTime;   
-    }
-
-    float GetInvertedIndependentRotation() {
-        return -GetIndependentRotation();   
+    void ApplyIndependentRotation(float rotation) {
+        rb.freezeRotation = true;
+        transform.Rotate(rotation * Time.deltaTime * Vector3.forward);
+        rb.freezeRotation = false;
     }
 }
