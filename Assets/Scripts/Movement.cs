@@ -8,23 +8,54 @@ public class Movement : MonoBehaviour {
     public bool isRotatingRight;
     public bool isRotatingLeft;
     public bool isThrusting;
+    public float thrustForce = 1000f;
+    public float rotationForce = 100f;
+    public Rigidbody rb;
 
-    private void Start() {
-        
+    void Start() {
+        rb = GetComponent<Rigidbody>();
     }
 
-    private void Update() {
+    void Update() {
         ProcessInputs();
+        ProcessThrust();
+        ProcessRotation();
     }
 
-    private void ProcessInputs() {
-        // basics
+    void ProcessInputs() {
         isThrusting = Input.GetKey(KeyCode.Space);
         isPressingLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
         isPressingRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
 
-        // dynamics
-        isRotatingLeft = !isRotatingRight && isPressingLeft;
+        isRotatingLeft =  !isRotatingRight && isPressingLeft;
         isRotatingRight = !isRotatingLeft && isPressingRight;
+    }
+
+    void ProcessThrust() {
+        if (isThrusting) {
+            rb.AddRelativeForce(Vector3.up * GetIndependentThrust());
+        }
+    }
+
+    void ProcessRotation() {
+        if (isRotatingRight) {
+            transform.Rotate(Vector3.forward * GetInvertedIndependentRotation());
+        }
+
+        if (isRotatingLeft) {
+            transform.Rotate(Vector3.forward * GetIndependentRotation());
+        }
+    }
+
+    float GetIndependentThrust() {
+        return thrustForce * Time.deltaTime;
+    }
+
+    float GetIndependentRotation() {
+        return rotationForce * Time.deltaTime;   
+    }
+
+    float GetInvertedIndependentRotation() {
+        return -GetIndependentRotation();   
     }
 }
