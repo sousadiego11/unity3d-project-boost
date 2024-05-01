@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Movement : MonoBehaviour {
+public class Rocket : MonoBehaviour {
 
     public bool isPressingRight;
     public bool isPressingLeft;
@@ -11,9 +11,11 @@ public class Movement : MonoBehaviour {
     public float thrustForce = 1000f;
     public float rotationForce = 100f;
     public Rigidbody rb;
+    public AudioSource audioS;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
+        audioS = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -34,6 +36,13 @@ public class Movement : MonoBehaviour {
     void ProcessThrust() {
         if (isThrusting) {
             rb.AddRelativeForce(Vector3.up * thrustForce * Time.deltaTime);
+            if (!audioS.isPlaying) {
+                audioS.Play();
+            }
+        } else {
+            if (audioS.isPlaying) {
+                audioS.Stop();
+            }
         }
     }
 
