@@ -11,14 +11,21 @@ public class RocketCollision : MonoBehaviour {
         rocket = GetComponent<Rocket>();    
     }
 
+    void OnCollisionStay(Collision other) {
+        isColliding = true;
+        switch (other.gameObject.tag) {
+            case "Finish":
+                HandleFinish();
+                break;
+        }
+        
+    }
+
     void OnCollisionEnter(Collision other) {
         isColliding = true;
         switch (other.gameObject.tag) {
             case "Obstacle":
                 HandleRespawn();
-                break;
-            case "Finish":
-                HandleFinish();
                 break;
         }
     }
@@ -28,6 +35,9 @@ public class RocketCollision : MonoBehaviour {
     }
 
     void HandleFinish() {
+        if (rocket.isSteady) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     void HandleRespawn() {

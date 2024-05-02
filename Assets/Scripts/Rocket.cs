@@ -5,7 +5,7 @@ public class Rocket : MonoBehaviour {
 
     readonly float thrustForce = 1000f;
     readonly float rotationForce = 100f;
-    readonly float zeroTolerance = 0.1f;
+    readonly float zeroTolerance = 0.001f;
     public bool isPressingRight, isPressingLeft, isRotatingRight, isRotatingLeft, isThrusting, isSteady;
     Rigidbody rb;
     AudioSource audioS;
@@ -30,7 +30,7 @@ public class Rocket : MonoBehaviour {
 
         isRotatingLeft =  !isRotatingRight && isPressingLeft && !rocketCollision.isColliding;
         isRotatingRight = !isRotatingLeft && isPressingRight &&  !rocketCollision.isColliding;
-        isSteady = Mathf.Abs(transform.eulerAngles.x) < zeroTolerance || Mathf.Abs(transform.eulerAngles.x) < zeroTolerance;
+        isSteady = GameObjIsResting();
     }
 
     void ProcessThrust() {
@@ -60,5 +60,12 @@ public class Rocket : MonoBehaviour {
         rb.freezeRotation = true;
         transform.Rotate(rotation * Time.deltaTime * Vector3.forward);
         rb.freezeRotation = false;
+    }
+
+    public bool GameObjIsResting() {
+        bool isAxisXSteady = Mathf.Abs(transform.eulerAngles.x) < zeroTolerance;
+        bool isAxisZSteady = Mathf.Abs(transform.eulerAngles.z) < zeroTolerance;
+
+        return isAxisXSteady && isAxisZSteady;
     }
 }
