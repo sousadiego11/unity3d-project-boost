@@ -4,43 +4,47 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class RocketCollision : MonoBehaviour {
-    public bool isColliding = false;
+    public bool isCollidingToAnything = false;
     Rocket rocket;
+    GameObject scripts;
+    SceneManagerInternal sceneManager;
+    ObjectSwaper objSwaper;
 
     void Start() {
-        rocket = GetComponent<Rocket>();    
+        rocket = GetComponent<Rocket>();   
+        scripts = GameObject.FindWithTag("Scripts");
+        sceneManager = scripts.GetComponent<SceneManagerInternal>();
+        objSwaper = scripts.GetComponent<ObjectSwaper>();
     }
 
     void OnCollisionStay(Collision other) {
-        isColliding = true;
-        switch (other.gameObject.tag) {
-            case "Finish":
-                HandleFinish();
-                break;
+        isCollidingToAnything = true;
+        if (other.gameObject.CompareTag("Finish")) {
+            HandleFinish();
         }
         
     }
 
     void OnCollisionEnter(Collision other) {
-        isColliding = true;
-        switch (other.gameObject.tag) {
-            case "Obstacle":
-                HandleRespawn();
-                break;
+        isCollidingToAnything = true;
+        if (other.gameObject.CompareTag("Obstacle")) {
+            HandleCrash();
         }
     }
 
     void OnCollisionExit(Collision other) {
-        isColliding = false;    
+        isCollidingToAnything = false;    
     }
 
     void HandleFinish() {
         if (rocket.isSteady) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            sceneManager.Advance();
         }
     }
 
-    void HandleRespawn() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    void HandleCrash() {
+        float delaySeconds = 2f;
+        sceneManager.ReloadDelay(delaySeconds);
+        objSwaper.Swap();
     }
 }

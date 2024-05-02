@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 648436131344552400}
   m_Layer: 0
   m_Name: Rocket
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,10 +163,7 @@ MonoBehaviour:
   isRotatingRight: 0
   isRotatingLeft: 0
   isThrusting: 0
-  thrustForce: 1000
-  rotationForce: 120
-  rb: {fileID: 0}
-  audioS: {fileID: 0}
+  isSteady: 0
 --- !u!114 &5546148287544071097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 387a2145a61be0d4d9c4032c75928b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCollidingToAnything: 0
 --- !u!54 &2107508569488827471
 Rigidbody:
   m_ObjectHideFlags: 0

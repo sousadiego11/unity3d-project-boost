@@ -7,8 +7,8 @@ public class Rocket : MonoBehaviour {
     readonly float rotationForce = 100f;
     readonly float zeroTolerance = 0.001f;
     public bool isPressingRight, isPressingLeft, isRotatingRight, isRotatingLeft, isThrusting, isSteady;
-    Rigidbody rb;
     AudioSource audioS;
+    Rigidbody rb;
     RocketCollision rocketCollision;
 
     void Start() {
@@ -28,8 +28,8 @@ public class Rocket : MonoBehaviour {
         isPressingLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
         isPressingRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
 
-        isRotatingLeft =  !isRotatingRight && isPressingLeft && !rocketCollision.isColliding;
-        isRotatingRight = !isRotatingLeft && isPressingRight &&  !rocketCollision.isColliding;
+        isRotatingLeft =  !isRotatingRight && isPressingLeft && !rocketCollision.isCollidingToAnything;
+        isRotatingRight = !isRotatingLeft && isPressingRight &&  !rocketCollision.isCollidingToAnything;
         isSteady = GameObjIsResting();
     }
 
