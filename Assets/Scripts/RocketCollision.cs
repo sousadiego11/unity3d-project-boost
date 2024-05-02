@@ -28,7 +28,7 @@ public class RocketCollision : MonoBehaviour {
 
     void OnCollisionEnter(Collision other) {
         isCollidingToAnything = true;
-        if (other.gameObject.CompareTag("Obstacle")) {
+        if (other.gameObject.CompareTag("Obstacle") && !crashed) {
             HandleCrash();
         }
     }
