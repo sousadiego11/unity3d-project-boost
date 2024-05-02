@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RocketCollision : MonoBehaviour {
     public bool isCollidingToAnything = false;
+    public bool crashed = false;
     Rocket rocket;
     GameObject scripts;
     SceneManagerInternal sceneManager;
@@ -44,6 +45,7 @@ public class RocketCollision : MonoBehaviour {
 
     void HandleCrash() {
         float delaySeconds = 2f;
+        crashed = true;
         sceneManager.ReloadDelay(delaySeconds);
         objSwaper.Swap();
     }
