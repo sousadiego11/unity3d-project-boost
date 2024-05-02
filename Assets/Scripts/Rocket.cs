@@ -3,39 +3,39 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour {
 
-    public bool isPressingRight;
-    public bool isPressingLeft;
-    public bool isRotatingRight;
-    public bool isRotatingLeft;
-    public bool isThrusting;
-    public float thrustForce = 1000f;
-    public float rotationForce = 100f;
-    public Rigidbody rb;
-    public AudioSource audioS;
+    readonly float thrustForce = 1000f;
+    readonly float rotationForce = 100f;
+    readonly float zeroTolerance = 0.1f;
+    public bool isPressingRight, isPressingLeft, isRotatingRight, isRotatingLeft, isThrusting, isSteady;
+    Rigidbody rb;
+    AudioSource audioS;
+    RocketCollision rocketCollision;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
         audioS = GetComponent<AudioSource>();
+        rocketCollision = GetComponent<RocketCollision>();
     }
 
     void Update() {
-        ProcessInputs();
+        ProcessBooleans();
         ProcessThrust();
         ProcessRotation();
     }
 
-    void ProcessInputs() {
+    void ProcessBooleans() {
         isThrusting = Input.GetKey(KeyCode.Space);
         isPressingLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
         isPressingRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
 
-        isRotatingLeft =  !isRotatingRight && isPressingLeft;
-        isRotatingRight = !isRotatingLeft && isPressingRight;
+        isRotatingLeft =  !isRotatingRight && isPressingLeft && !rocketCollision.isColliding;
+        isRotatingRight = !isRotatingLeft && isPressingRight &&  !rocketCollision.isColliding;
+        isSteady = Mathf.Abs(transform.eulerAngles.x) < zeroTolerance || Mathf.Abs(transform.eulerAngles.x) < zeroTolerance;
     }
 
     void ProcessThrust() {
         if (isThrusting) {
-            rb.AddRelativeForce(Vector3.up * thrustForce * Time.deltaTime);
+            rb.AddRelativeForce(thrustForce * Time.deltaTime * Vector3.up);
             if (!audioS.isPlaying) {
                 audioS.Play();
             }
