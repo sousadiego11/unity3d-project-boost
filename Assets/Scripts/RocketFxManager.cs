@@ -40,7 +40,7 @@ public class RocketFxManager : MonoBehaviour {
             if (!rightThruster.isPlaying) rightThruster.Play();
         }
     }
-    
+
     public void HandleStopRightThrustersParticleFX() {
         foreach (ParticleSystem rightThruster in rightThrustersFX) {
             if (rightThruster.isPlaying) rightThruster.Stop();
