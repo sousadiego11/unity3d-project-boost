@@ -7,13 +7,11 @@ public class RocketMovement : MonoBehaviour {
     readonly float rotationForce = 100f;
     readonly float zeroTolerance = 0.001f;
     public bool isPressingRight, isPressingLeft, isRotatingRight, isRotatingLeft, isThrusting, isSteady;
-    AudioSource audioS;
     Rigidbody rb;
     RocketCollision rocketCollision;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
-        audioS = GetComponent<AudioSource>();
         rocketCollision = GetComponent<RocketCollision>();
     }
 
