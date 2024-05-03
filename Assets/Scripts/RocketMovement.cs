@@ -9,10 +9,12 @@ public class RocketMovement : MonoBehaviour {
     public bool isPressingRight, isPressingLeft, isRotatingRight, isRotatingLeft, isThrusting, isSteady;
     Rigidbody rb;
     RocketCollision rocketCollision;
+    RocketAudioManager rocketAudioManager;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
         rocketCollision = GetComponent<RocketCollision>();
+        rocketAudioManager = GetComponent<RocketAudioManager>();
     }
 
     void Update() {
@@ -34,6 +36,9 @@ public class RocketMovement : MonoBehaviour {
     void ProcessThrust() {
         if (isThrusting) {
             rb.AddRelativeForce(thrustForce * Time.deltaTime * Vector3.up);
+            rocketAudioManager.HandlePlayThrust();
+        } else {
+            rocketAudioManager.HandleStopThrust();
         }
     }
 
