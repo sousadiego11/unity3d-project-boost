@@ -10,12 +10,14 @@ public class RocketCollision : MonoBehaviour {
     GameObject scripts;
     SceneManagerInternal sceneManager;
     ObjectSwaper objSwaper;
+    RocketFxManager rocketFxManager;
 
     void Start() {
         rocket = GetComponent<RocketMovement>();   
         scripts = GameObject.FindWithTag("Scripts");
         sceneManager = scripts.GetComponent<SceneManagerInternal>();
         objSwaper = scripts.GetComponent<ObjectSwaper>();
+        rocketFxManager = GetComponent<RocketFxManager>();
     }
 
     void OnCollisionStay(Collision other) {
@@ -39,12 +41,16 @@ public class RocketCollision : MonoBehaviour {
 
     void HandleFinish() {
         if (rocket.isSteady) {
-            sceneManager.Advance();
+            float delaySeconds = 2f;
+            Debug.Log("HandleFinish");
+            rocketFxManager.HandlePlaySuccessSFX();
+            rocketFxManager.HandlePlaySuccessParticleFX();
+            sceneManager.AdvanceDelay(delaySeconds);
         }
     }
 
     void HandleCrash() {
-        float delaySeconds = 2f;
+        float delaySeconds = 4f;
         crashed = true;
         sceneManager.ReloadDelay(delaySeconds);
         objSwaper.Swap();

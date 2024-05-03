@@ -9,12 +9,12 @@ public class RocketMovement : MonoBehaviour {
     public bool isPressingRight, isPressingLeft, isRotatingRight, isRotatingLeft, isThrusting, isSteady;
     Rigidbody rb;
     RocketCollision rocketCollision;
-    RocketAudioManager rocketAudioManager;
+    RocketFxManager rocketFxManager;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
         rocketCollision = GetComponent<RocketCollision>();
-        rocketAudioManager = GetComponent<RocketAudioManager>();
+        rocketFxManager = GetComponent<RocketFxManager>();
     }
 
     void Update() {
@@ -36,19 +36,27 @@ public class RocketMovement : MonoBehaviour {
     void ProcessThrust() {
         if (isThrusting) {
             rb.AddRelativeForce(thrustForce * Time.deltaTime * Vector3.up);
-            rocketAudioManager.HandlePlayThrust();
+            rocketFxManager.HandlePlayThrustSFX();
+            rocketFxManager.HandlePlayEngineParticleFX();
         } else {
-            rocketAudioManager.HandleStopThrust();
+            rocketFxManager.HandleStopThrustSFX();
+            rocketFxManager.HandleStopEngineParticleFX();
         }
     }
 
     void ProcessRotation() {
         if (isRotatingRight) {
             ApplyIndependentRotation(-rotationForce);
+            rocketFxManager.HandlePlayRightThrustersParticleFX();
+        } else {
+            rocketFxManager.HandleStopRightThrustersParticleFX();
         }
 
         if (isRotatingLeft) {
             ApplyIndependentRotation(rotationForce);
+            rocketFxManager.HandlePlayLeftThrustersParticleFX();
+        } else {
+            rocketFxManager.HandleStopLeftThrustersParticleFX();
         }
     }
 
