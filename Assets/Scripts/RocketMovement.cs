@@ -18,12 +18,12 @@ public class RocketMovement : MonoBehaviour {
     }
 
     void Update() {
-        ProcessBooleans();
+        ProcessStateProperties();
         ProcessThrust();
         ProcessRotation();
     }
 
-    void ProcessBooleans() {
+    void ProcessStateProperties() {
         isThrusting = Input.GetKey(KeyCode.Space);
         isPressingLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
         isPressingRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
@@ -35,7 +35,7 @@ public class RocketMovement : MonoBehaviour {
 
     void ProcessThrust() {
         if (isThrusting) {
-            rb.AddRelativeForce(thrustForce * Time.deltaTime * Vector3.up);
+            ApplyIndependentERelativeForce(thrustForce);
             rocketFxManager.HandlePlayThrustSFX();
             rocketFxManager.HandlePlayEngineParticleFX();
         } else {
@@ -64,6 +64,10 @@ public class RocketMovement : MonoBehaviour {
         rb.freezeRotation = true;
         transform.Rotate(rotation * Time.deltaTime * Vector3.forward);
         rb.freezeRotation = false;
+    }
+
+    void ApplyIndependentERelativeForce(float force) {
+        rb.AddRelativeForce(force * Time.deltaTime * Vector3.up);
     }
 
     public bool GameObjIsResting() {
