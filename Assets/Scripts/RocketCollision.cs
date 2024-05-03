@@ -42,7 +42,6 @@ public class RocketCollision : MonoBehaviour {
     void HandleFinish() {
         if (rocket.isSteady) {
             float delaySeconds = 2f;
-            Debug.Log("HandleFinish");
             rocketFxManager.HandlePlaySuccessSFX();
             rocketFxManager.HandlePlaySuccessParticleFX();
             sceneManager.AdvanceDelay(delaySeconds);
