@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 public class RocketCollision : MonoBehaviour {
     public bool isCollidingToAnything = false;
     public bool crashed = false;
-    Rocket rocket;
+    RocketMovement rocket;
     GameObject scripts;
     SceneManagerInternal sceneManager;
     ObjectSwaper objSwaper;
 
     void Start() {
-        rocket = GetComponent<Rocket>();   
+        rocket = GetComponent<RocketMovement>();   
         scripts = GameObject.FindWithTag("Scripts");
         sceneManager = scripts.GetComponent<SceneManagerInternal>();
         objSwaper = scripts.GetComponent<ObjectSwaper>();

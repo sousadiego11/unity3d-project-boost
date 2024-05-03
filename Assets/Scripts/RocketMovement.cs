@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Rocket : MonoBehaviour {
+public class RocketMovement : MonoBehaviour {
 
     readonly float thrustForce = 1000f;
     readonly float rotationForce = 100f;
@@ -36,13 +36,6 @@ public class Rocket : MonoBehaviour {
     void ProcessThrust() {
         if (isThrusting) {
             rb.AddRelativeForce(thrustForce * Time.deltaTime * Vector3.up);
-            if (!audioS.isPlaying) {
-                audioS.Play();
-            }
-        } else {
-            if (audioS.isPlaying) {
-                audioS.Stop();
-            }
         }
     }
 
