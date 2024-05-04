@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4045296344512095622}
   - component: {fileID: 809539394240350684}
   - component: {fileID: 6900349048153435337}
+  - component: {fileID: 3271955257461812161}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Scripts
@@ -58,3 +59,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swapTo: {fileID: 6520571931954123074, guid: 2fe4ef8895aa1d64e9b58f3e1826ad22, type: 3}
+--- !u!114 &3271955257461812161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542726221035536587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7daa20e39f40340905354f77dd5f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
