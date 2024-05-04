@@ -18,4 +18,8 @@ public class SceneManagerInternal : MonoBehaviour {
     public void Reload() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public bool GetIsLastScene() {
+        return SceneManager.loadedSceneCount == SceneManager.GetActiveScene().buildIndex;
+    }
 }

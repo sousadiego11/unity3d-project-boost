@@ -4,7 +4,7 @@ using UnityEngine;
 public class RocketMovement : MonoBehaviour {
 
     readonly float thrustForce = 1000f;
-    readonly float rotationForce = 100f;
+    readonly float rotationForce = 150f;
     readonly float zeroTolerance = 0.001f;
     public bool isPressingRight, isPressingLeft, isRotatingRight, isRotatingLeft, isThrusting, isSteady;
     Rigidbody rb;

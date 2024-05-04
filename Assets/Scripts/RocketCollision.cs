@@ -44,7 +44,8 @@ public class RocketCollision : MonoBehaviour {
             float delaySeconds = 2f;
             rocketFxManager.HandlePlaySuccessSFX();
             rocketFxManager.HandlePlaySuccessParticleFX();
-            sceneManager.AdvanceDelay(delaySeconds);
+            
+            if (!sceneManager.GetIsLastScene()) sceneManager.AdvanceDelay(delaySeconds);
         }
     }
 
